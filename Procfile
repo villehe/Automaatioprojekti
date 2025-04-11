@@ -1,0 +1,3 @@
+worker: node mqtt_mongo.js
+
+
