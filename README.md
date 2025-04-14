@@ -26,6 +26,9 @@ cd clientdemo
 
 ```bash
 npm install
+npm install mqtt
+npm install mongodb
+
 ```
 
 3. **Luo `.env`-tiedosto projektin juureen ja lisää MongoDB-yhteysosoite**
@@ -49,13 +52,17 @@ worker: node mqtt_mongo.js
 1. **Luo Heroku-sovellus**
 
 ```bash
-heroku create sensordemo-app
+git add .
+git commit -m "Added a Procfile."
+heroku login
+heroku create example-app 
+
 ```
 
 2. **Lisää MongoDB URI Herokuun**
 
 ```bash
-heroku config:set MONGODB_URI=your_mongodb_atlas_connection_string
+mongodb+srv://Ville:<db_password>@cluster0.r2qya.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 3. **Pushaa projekti Herokuun**
@@ -63,6 +70,11 @@ heroku config:set MONGODB_URI=your_mongodb_atlas_connection_string
 ```bash
 git push heroku master
 ```
+3. **Tarkistetaan, että sovellus toimii**
+
+```bash
+heroku scale worker=1 web=0
+heroku logs --tail
 
 ---
 
@@ -121,6 +133,14 @@ Muista lisätä seuraava GitHub Secrets -osioon:
 # Kehittäjä
 
 Toteuttaja: **villehe**
+
+---
+
+# Kommentit tekemisestä
+
+Deployment Herokuun onnistui melko helposti luentoa seuraamalla. Sovellus kaatui aluksi jokaisen datapäivityksen välissä,
+koska Heroku odotti jonkinlaista web-käyttöliittymää. Ongelma hävisi tuolla edellä mainitulla "Luo `.env`-tiedosto projektin juureen ja lisää MongoDB-yhteysosoite". Hyödynsin myös koneellani olevaa Visual Studio Code -ohjelmaa, jossa voi pyytää tekoälyltä apua, jos ei ymmärrä jotain.
+Löysin myös hyvät ohjeet github actions -käyttöönottoon. Myös tähän README-tiedostoon löytyi hyvä valmis pohja. Kaiken kaikkiaan hyvä projekti, josta sai jo hyvän käsityksen pilvipalveluiden käytöstä.
 
 ---
 
